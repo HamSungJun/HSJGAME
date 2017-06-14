@@ -22,7 +22,7 @@ pygame.display.set_caption("HOTris")
 
 class ui_variables:
     # Fonts
-    font_path = "./assets/fonts/OpenSans-Light.ttf"
+    font_path = "./assets/fonts/HoonWhitecatR.ttf"
     h1 = pygame.font.Font(font_path, 50)
     h2 = pygame.font.Font(font_path, 30)
     h4 = pygame.font.Font(font_path, 20)
@@ -583,9 +583,9 @@ while not done:
         title_info = ui_variables.h6.render("Made by HSJPRIME. Forked From INJE", 1, ui_variables.white)
 
 
-        screen.blit(title_start, (92, 195))
-        screen.blit(title, (65, 120))
-        screen.blit(title_info, (40, 335))
+        screen.blit(title_start, (250, 280))
+        screen.blit(title, (250, 200))
+        screen.blit(title_info, (250, 335))
 
         if not start:
             pygame.display.update()

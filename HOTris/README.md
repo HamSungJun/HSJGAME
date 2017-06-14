@@ -1,7 +1,7 @@
 # HOTris
 HOTris made with pygame
 
-<img src="assets/images/gameplay_1.gif" width="250">
+![](http://i64.tinypic.com/30n9ax4.png)
 
 ##Play Help.
 

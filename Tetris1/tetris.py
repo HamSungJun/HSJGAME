@@ -3,7 +3,6 @@ import os
 
 import pygame
 from pygame.locals import *
-
 from engine import TextView, ViewBase, Board, Piece, Color
 
 _print_dim = False
@@ -36,7 +35,7 @@ class PygameView(ViewBase):
         self.padding = (0, 0)
         self.go_font = fonts["game_over"]
         self.sc_font = fonts["score"]
-        self.font_color = pygame.Color(59, 31, 231)
+        self.font_color = pygame.Color(0, 0, 255)
         self.score = None
         self.level = None
 
@@ -80,7 +79,7 @@ class PygameView(ViewBase):
 
     def get_score_size(self):
         (sw, sh) = self.sc_font.size("000000")
-        (lw, lh) = self.sc_font.size("LEVEL 00")
+        (lw, lh) = self.sc_font.size("Current Level : 00")
         return (max(sw, lw) + self.BOARD_BORDER_SIZE, sh + lh + self.SCORE_PADDING)
 
     def calc_dimensions(self):
@@ -259,6 +258,7 @@ class Tetris:
                 elif event.type == self.LEVEL_UP:
                     pygame.time.set_timer(self.DROP_EVENT, self.get_level_speed(event.level))
                     print("new level:", event.level)
+
 
             if self.board.game_over and not self.game_over:
                 self.game_over = True
