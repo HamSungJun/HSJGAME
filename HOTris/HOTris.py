@@ -10,6 +10,8 @@ block_size = 17 # Height, width of single block
 width = 10 # Board width
 height = 20 # Board height
 framerate = 30 # Bigger -> Slower
+Music_playing = True
+Skin_Changed = False
 
 pygame.init()
 
@@ -28,6 +30,10 @@ class ui_variables:
     h4 = pygame.font.Font(font_path, 20)
     h5 = pygame.font.Font(font_path, 13)
     h6 = pygame.font.Font(font_path, 10)
+    h7 = pygame.font.Font(font_path, 20)
+    h8 = pygame.font.Font(font_path, 20)
+    h9 = pygame.font.Font(font_path, 20)
+    h10 = pygame.font.Font(font_path, 20)
 
     # Sounds (wav , ogg available)
     click_sound = pygame.mixer.Sound("./assets/sounds/Intro.wav")
@@ -37,6 +43,8 @@ class ui_variables:
     double_sound = pygame.mixer.Sound("./assets/sounds/Sexy_Double.wav")
     triple_sound = pygame.mixer.Sound("./assets/sounds/Sexy_Triple.wav")
     tetris_sound = pygame.mixer.Sound("./assets/sounds/Sexy_Quad.wav")
+    S_UP_sound = pygame.mixer.Sound("./assets/sounds/SpeedUp.wav")
+    S_DOWN_sound = pygame.mixer.Sound("./assets/sounds/SpeedDown.wav")
 
     # Background colors
     black = (10, 10, 10) #rgb(10, 10, 10)
@@ -59,7 +67,52 @@ class ui_variables:
     doll_eye = (102, 255, 255)
     doll_body = (204, 51, 255)
 
+
     t_color = [grey_2, cyan, blue, orange, yellow, green, pink, red]
+def draw_Button () :
+    #  speed up
+    pygame.draw.rect(
+        screen,
+        ui_variables.red,
+        Rect(50, 400, 50, 50)
+
+    )
+    text_SpeedUp = ui_variables.h7.render("S_Up", 1, ui_variables.black)
+    screen.blit(text_SpeedUp, (50,415))
+    #  speed down
+    pygame.draw.rect(
+
+        screen,
+        ui_variables.doll_eye,
+        Rect(50, 470, 50, 50)
+
+    )
+
+    text_SpeedDown = ui_variables.h8.render("S_Down", 1, ui_variables.black)
+    screen.blit(text_SpeedDown , (50, 485))
+
+    pygame.draw.rect(
+
+        screen,
+        (255, 204, 153),
+        Rect(450, 400, 100, 50)
+
+    )
+
+    text_SpeedDown = ui_variables.h9.render("Music ON/OFF", 1, ui_variables.black)
+    screen.blit(text_SpeedDown, (450, 415))
+
+    pygame.draw.rect(
+
+        screen,
+        (255, 204, 153),
+        Rect(450, 500, 100, 50)
+
+    )
+
+    text_SpeedDown = ui_variables.h10.render("New Theme", 1, ui_variables.black)
+    screen.blit(text_SpeedDown, (450, 515))
+
 def draw_doll() :
 
         pygame.draw.rect(
@@ -226,7 +279,7 @@ def draw_board(next, hold, score, level, goal):
     )
 
     draw_Hot_Images(level)
-
+    draw_Button()
     # Draw next mino
     grid_n = tetrimino.mino_map[next - 1][0]
 
@@ -373,6 +426,7 @@ def is_stackable(mino):
     return True
 
 # Initial values
+
 what_K = 0
 blink = True
 start = False
@@ -411,6 +465,57 @@ while not done:
 
             if event.type == QUIT:
                 done = True
+            if event.type == pygame.MOUSEBUTTONDOWN :
+                mouse_pos = pygame.mouse.get_pos()
+                if mouse_pos[0] >= 50 and pygame.mouse.get_pos()[1] >= 400:
+                    if pygame.mouse.get_pos()[0] <= 100 and pygame.mouse.get_pos()[1] <= 450 :
+                        framerate = int(framerate * 0.85)
+                        pygame.time.set_timer(pygame.USEREVENT, framerate * 10)
+                        ui_variables.S_UP_sound.play()
+
+                if mouse_pos[0] >= 50 and pygame.mouse.get_pos()[1] >= 470:
+                    if pygame.mouse.get_pos()[0] <= 100 and pygame.mouse.get_pos()[1] <= 520 :
+                        framerate = int(framerate * 1.15)
+                        pygame.time.set_timer(pygame.USEREVENT, framerate * 10)
+                        ui_variables.S_DOWN_sound.play()
+
+                if mouse_pos[0] >= 450 and pygame.mouse.get_pos()[1] >= 400:
+                    if pygame.mouse.get_pos()[0] <= 550 and pygame.mouse.get_pos()[1] <= 450 :
+                        if Music_playing:
+                            pygame.mixer.music.pause()
+                            Music_playing = False
+                        else:
+                            pygame.mixer.music.unpause()
+                            Music_playing = True
+
+                if mouse_pos[0] >= 450 and pygame.mouse.get_pos()[1] >= 500:
+                    if pygame.mouse.get_pos()[0] <= 550 and pygame.mouse.get_pos()[1] <= 550 :
+                        if Skin_Changed == False:
+                            Skin_1 = (84, 169, 146)
+                            Skin_2 = (143, 181, 156)
+                            Skin_3 = (237, 219, 195)
+                            Skin_4 = (232, 197, 113)
+                            Skin_5 = (217, 76, 58)
+                            Skin_6 = (129, 58, 38)
+                            Skin_7 = (99,130,112)
+                            Skin_8 = (43,67,79)
+                            ui_variables.t_color = [Skin_1 , Skin_2 , Skin_3 , Skin_4 , Skin_5 , Skin_6 , Skin_7 , Skin_8]
+                            Skin_Changed = True
+                            pygame.display.update()
+                        else:
+                            Skin_9 =  (35,35,35)
+                            Skin_10 = (43,67,79)
+                            Skin_11 = (12,227,255)
+                            Skin_12 = (81,240,232)
+                            Skin_13 = (149,254,208)
+                            Skin_14 = (240,193,127)
+                            Skin_15 = (255,163,145)
+                            Skin_16 = (231,129,102)
+                            ui_variables.t_color = [Skin_9, Skin_10, Skin_11, Skin_12, Skin_13, Skin_14, Skin_15, Skin_16]
+                            Skin_Changed = False
+                            pygame.display.update()
+
+
             elif event.type == USEREVENT:
 
                 # Draw a mino
