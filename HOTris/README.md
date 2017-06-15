@@ -1,4 +1,7 @@
 # HOTris
+
+Forked From https://github.com/k0626089
+
 HOTris made with pygame
 
 ![](http://i66.tinypic.com/2i6z59v.png)
